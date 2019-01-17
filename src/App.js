@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { simpleAction } from './actions/simpleAction'
+import { simpleAction } from './actions/simpleAction';
+import Header from './components/header';
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 
 import './App.scss';
@@ -13,19 +14,11 @@ const App = (props) => {
     <div>
       <Router>
         <div>
-          <ul>
-            <li>
-              <Link to="/">{ result }</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-          </ul>
-
-          <hr />
-
-          <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
+          <Header result={result} />
+          <main>
+            <Route exact path="/" component={Home} />
+            <Route path="/about" component={About} />
+          </main>
         </div>
       </Router>
     </div>
