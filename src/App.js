@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { simpleAction } from './actions/simpleAction';
 import Header from './components/header';
+import Match from './components/match';
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
 import './App.scss';
@@ -16,7 +17,7 @@ const App = (props) => {
         <div>
           <Header result={result} />
           <main>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Match} />
             <Route path="/about" component={About} />
           </main>
         </div>
@@ -24,15 +25,6 @@ const App = (props) => {
     </div>
   );
 };
-
-
-const Home = () => {
-  return (
-    <div>
-      <h2>Home</h2>
-    </div>
-  );
-}
 
 const About = () => {
   return (

@@ -6,7 +6,7 @@ import './index.scss';
 
 const Header = () => (
   <header>
-    <img src={logo} alt="logo" />
+    <Link to="/"><img src={logo} alt="logo" /></Link>
     <nav>
       <ul>
         <li><Link to="/">HOME</Link></li>
