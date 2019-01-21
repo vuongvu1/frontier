@@ -7,8 +7,8 @@ const Match = () => {
         <Fragment>
             <div className="card">
                 <div className="container">
-                    <h4><b>Letter is pretty</b></h4> 
-                    <p>Architect Engineer</p> 
+                    <h4><b>Letter is pretty</b></h4>
+                    <p>Architect Engineer</p>
                 </div>
             </div>
         </Fragment>
