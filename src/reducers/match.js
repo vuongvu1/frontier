@@ -1,14 +1,14 @@
 
+import { actionTypes } from 'actions/match';
+
 const initialState = {
-  result: 'hello'
+  matches: []
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case 'SIMPLE_ACTION':
-      return {
-        result: action.payload
-      }
+    case actionTypes.GET_ALL_MATCHES:
+      return { matches: action.payload }
     default:
       return state
   }

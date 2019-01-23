@@ -1,20 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { initializeFirebase } from 'services/firebase';
-import { simpleAction } from './actions/simpleAction';
-import Header from './components/header';
-import Match from './components/match';
-import About from './components/about';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { getAllMatches } from 'apis/firebase';
-import './App.scss';
+import {
+  // getAllMatchesApi,
+  getMatchesForPageApi,
+} from 'apis/firebase';
+import { getAllMatchesAction } from 'actions/match';
+import Header from 'components/header';
+import Match from 'components/match';
+import About from 'components/about';
+
+import { normalizeMatches } from 'utils/normalizeData';
+import 'App.scss';
 
 class App extends React.Component {
 
   getMatches = async () => {
-    const matches = await getAllMatches();
-    console.log({ matches });
+    const matches = await getMatchesForPageApi();
+    this.props.getAllMatchesProps(normalizeMatches(matches));
   }
 
   componentDidMount() {
@@ -23,14 +28,14 @@ class App extends React.Component {
   }
 
   render() {
-    const { result } = this.props;
+    const { matches } = this.props;
     return (
       <div>
         <Router>
           <div>
-            <Header result={result} />
+            <Header />
             <main>
-              <Route exact path="/" component={Match} />
+              <Route exact path="/" render={() => <Match matches={matches}/>} />
               <Route path="/about" component={About} />
             </main>
           </div>
@@ -41,11 +46,11 @@ class App extends React.Component {
 };
 
 const mapStateToProps = state => ({
-  ...state.simpleReducer
+  ...state.match
  });
 
 const mapDispatchToProps = dispatch => ({
-  simpleAction: () => dispatch(simpleAction())
+  getAllMatchesProps: (matches) => dispatch(getAllMatchesAction(matches))
  });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
