@@ -1,4 +1,11 @@
+import moment from 'moment';
+
+const DEFAULT_MATCH_DATE_FORMAT = 'dddd, MMMM DD, YYYY Z';
 
 export const normalizeMatches = (matches) => (
-  Object.keys(matches).map((key) => ({ key, ...matches[key] }))
+  Object.keys(matches).map((key) => ({
+    ...matches[key],
+    key,
+    time: moment(matches[key].time).format(DEFAULT_MATCH_DATE_FORMAT)
+  }))
 );

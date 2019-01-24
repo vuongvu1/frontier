@@ -35,8 +35,10 @@ class App extends React.Component {
           <div>
             <Header />
             <main>
-              <Route exact path="/" render={() => <Match matches={matches}/>} />
-              <Route path="/about" component={About} />
+              <div>
+                <Route exact path="/" render={() => <Match matches={matches}/>} />
+                <Route path="/about" component={About} />
+              </div>
             </main>
           </div>
         </Router>

@@ -1,24 +1,46 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Component } from 'react';
 
 import './index.scss';
 
-const Match = (props) => {
-  const { matches } = props;
-  console.log({ matches });
-  return (
+class Match extends Component {
+  state = {
+    activeKey: '',
+  };
+
+  onClickOnMatch = (key) => {
+    this.setState(prevState => ({
+      activeKey: prevState.activeKey !== key ? key : ''
+    }));
+
+    const element = document.getElementById(key);
+    element.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+  };
+
+  render() {
+    const { matches } = this.props;
+    const { activeKey } = this.state;
+    console.log({ matches, activeKey });
+    return (
     <Fragment>
-      {
+        {
         matches.map(match => (
-          <div className="card" key={match.key}>
+            <div
+              id={match.key}
+              key={match.key}
+              className={`card ${activeKey === match.key ? 'card-active' : ''}`}
+              onClick={() => this.onClickOnMatch(match.key)}
+            >
             <div className="container">
-              <h4><b>{match.title}</b></h4>
-              <p>{match.league}</p>
+                <div className="title hide">{match.title}</div>
+                <div className="time hide">{match.time}</div>
+                <div className="league hide">{match.league}</div>
             </div>
-          </div>
-        )) 
-      }
+            </div>
+        ))
+        }
     </Fragment>
-  );
+    );
+  };
 };
 
 
