@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-const DEFAULT_MATCH_DATE_FORMAT = 'dddd, MMMM DD, YYYY Z';
+const DEFAULT_MATCH_DATE_FORMAT = 'dddd, MMMM DD, YYYY';
 
 export const normalizeMatches = (matches) => (
   Object.keys(matches).map((key) => ({

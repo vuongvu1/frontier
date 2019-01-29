@@ -1,0 +1,14 @@
+@import '../../styles/animation.scss';
+
+.loading {
+  width: 50px;
+  height: 50px;
+  background: black;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  border-radius: 10%;
+
+  -webkit-animation: slinkyAnimation 4000ms linear infinite both;
+  animation: slinkyAnimation 4000ms linear infinite both;
+}

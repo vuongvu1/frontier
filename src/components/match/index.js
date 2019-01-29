@@ -1,45 +1,61 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import './index.scss';
 
 class Match extends Component {
-  state = {
-    activeKey: '',
-  };
+  state = { activeKey: '' };
 
   onClickOnMatch = (key) => {
     this.setState(prevState => ({
       activeKey: prevState.activeKey !== key ? key : ''
-    }));
+    }), () => {
+      const element = document.getElementById(key);
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center',
+      });
+    });
+  };
 
-    const element = document.getElementById(key);
-    element.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+  renderVideos = (video) => (
+    <Fragment key={video.src}>
+      <div>{video.title}</div>
+      <iframe
+        width='640' height='350'
+        src={video.src}
+        allowFullScreen
+        title={video.title}
+      ></iframe>
+    </Fragment>
+  );
+
+  renderMatches = (match) => {
+    const { activeKey } = this.state;
+    const isActive = activeKey === match.key;
+
+    return (
+      <div
+        id={match.key}
+        key={match.key}
+        className={`card ${isActive ? 'active' : ''}`}
+        onClick={() => this.onClickOnMatch(match.key)}
+      >
+        <div className="container">
+            <div className="title hideText">{match.title}</div>
+            <div className="time hideText">{match.time}</div>
+            <div className="league hideText">{match.league}</div>
+            {isActive && match.videos.map(this.renderVideos)}
+        </div>
+      </div>
+    )
   };
 
   render() {
     const { matches } = this.props;
-    const { activeKey } = this.state;
-    console.log({ matches, activeKey });
-    return (
-    <Fragment>
-        {
-        matches.map(match => (
-            <div
-              id={match.key}
-              key={match.key}
-              className={`card ${activeKey === match.key ? 'card-active' : ''}`}
-              onClick={() => this.onClickOnMatch(match.key)}
-            >
-            <div className="container">
-                <div className="title hide">{match.title}</div>
-                <div className="time hide">{match.time}</div>
-                <div className="league hide">{match.league}</div>
-            </div>
-            </div>
-        ))
-        }
-    </Fragment>
-    );
+    console.log({ matches });
+
+    return matches.map(this.renderMatches);
   };
 };
 

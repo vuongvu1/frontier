@@ -1,21 +1,22 @@
-import React from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { initializeFirebase } from 'services/firebase';
 import {
-  // getAllMatchesApi,
   getMatchesForPageApi,
 } from 'apis/firebase';
 import { getAllMatchesAction } from 'actions/match';
 import Header from 'components/header';
 import Match from 'components/match';
-import About from 'components/about';
+import Loading from 'components/loading';
 
 import { normalizeMatches } from 'utils/normalizeData';
 import 'App.scss';
 
-class App extends React.Component {
+const About = lazy(() => import('components/about'));
+
+class App extends Component {
 
   getMatches = async () => {
     const matches = await getMatchesForPageApi();
@@ -29,6 +30,7 @@ class App extends React.Component {
 
   render() {
     const { matches } = this.props;
+
     return (
       <div>
         <Router>
@@ -36,8 +38,20 @@ class App extends React.Component {
             <Header />
             <main>
               <div>
-                <Route exact path="/" render={() => <Match matches={matches}/>} />
-                <Route path="/about" component={About} />
+                {
+                  matches.length
+                  ? <Route
+                      exact path="/"
+                      render={() => <Match matches={matches} />}
+                    />
+                  : <Loading />
+                }
+                <Route exact path="/about" render={() => (
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <About />
+                    </Suspense>
+                  )}
+                />
               </div>
             </main>
           </div>

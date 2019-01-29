@@ -1,16 +1,20 @@
+@import '../../styles/global';
+
 
 header {
   align-items: center;
   background-color: white;
+  transition: ease 0.3;
   display: flex;
   height: 80px;
   left: 0;
-  opacity: 0.8;
   position: fixed;
+  opacity: 0.9;
   right: 0;
   top: 0;
-  font-weight: bold;
+  font-weight: 500;
   z-index: 1;
+  font-size: 25px;
   * {
     display: inline;
   }
@@ -20,12 +24,14 @@ header {
   }
   li {
     margin: 20px;
+
+    .active {
+      font-weight: 900;
+    }
+
     a {
       color: black;
       text-decoration: none;
-      &:hover {
-        color: grey;
-      }
     }
   }
 }
