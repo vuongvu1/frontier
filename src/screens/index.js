@@ -8,13 +8,13 @@ import {
 } from 'apis/firebase';
 import { getAllMatchesAction } from 'actions/match';
 import Header from 'components/header';
-import Match from 'components/match';
+import Match from 'screens/match';
 import Loading from 'components/loading';
 
 import { normalizeMatches } from 'utils/normalizeData';
-import 'App.scss';
+import './index.scss';
 
-const About = lazy(() => import('components/about'));
+const About = lazy(() => import('screens/about'));
 
 class App extends Component {
 
@@ -46,7 +46,9 @@ class App extends Component {
                     />
                   : <Loading />
                 }
-                <Route exact path="/about" render={() => (
+                <Route
+                  exact path="/about"
+                  render={() => (
                     <Suspense fallback={<div>Loading...</div>}>
                       <About />
                     </Suspense>
