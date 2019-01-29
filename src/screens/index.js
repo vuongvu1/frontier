@@ -30,7 +30,6 @@ class App extends Component {
 
   render() {
     const { matches } = this.props;
-
     return (
       <div>
         <Router>
@@ -38,14 +37,14 @@ class App extends Component {
             <Header />
             <main>
               <div>
-                {
-                  matches.length
-                  ? <Route
-                      exact path="/"
-                      render={() => <Match matches={matches} />}
-                    />
-                  : <Loading />
-                }
+                <Route
+                  exact path="/"
+                  render={() => (
+                    matches.length
+                    ? <Match matches={matches} />
+                    : <Loading />
+                  )}
+                />
                 <Route
                   exact path="/about"
                   render={() => (
