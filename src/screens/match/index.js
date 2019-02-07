@@ -3,11 +3,15 @@ import React, { Component, Fragment } from 'react';
 import './index.scss';
 
 class Match extends Component {
-  state = { activeKey: '' };
+  state = { activeKey: '', activeVideo: '' };
 
-  onClickOnMatch = (key) => {
+  onClickOnMatch = (match) => {
+    const { key, videos } = match;
+    const isCurrentActiveKey = (prevState) => prevState.activeKey !== key;
+
     this.setState(prevState => ({
-      activeKey: prevState.activeKey !== key ? key : ''
+      activeKey: isCurrentActiveKey(prevState) ? key : '',
+      activeVideo: isCurrentActiveKey(prevState) ? videos[0].src : prevState.activeVideo,
     }), () => {
       const element = document.getElementById(key);
       element.scrollIntoView({
@@ -20,13 +24,16 @@ class Match extends Component {
 
   renderVideos = (video) => (
     <Fragment key={video.src}>
-      <div>{video.title}</div>
-      <iframe
-        width='640' height='350'
-        src={video.src}
-        allowFullScreen
-        title={video.title}
-      ></iframe>
+      <div className="videoTab">{video.title}</div>
+      {
+        this.state.activeVideo === video.src &&
+          <iframe
+            width='640' height='350'
+            src={video.src}
+            allowFullScreen
+            title={video.title}
+          />
+      }
     </Fragment>
   );
 
@@ -39,7 +46,7 @@ class Match extends Component {
         id={match.key}
         key={match.key}
         className={`card ${isActive ? 'active' : ''}`}
-        onClick={() => this.onClickOnMatch(match.key)}
+        onClick={() => this.onClickOnMatch(match)}
       >
         <div className="container">
             <div className="title hideText">{match.title}</div>
