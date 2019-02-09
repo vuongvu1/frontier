@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import './index.scss';
 
@@ -22,24 +22,39 @@ class Match extends Component {
     });
   };
 
+  onClickVideoTitle = (e, activeKey) => {
+    e.stopPropagation();
+    this.setState(prevState => ({
+      activeVideo: prevState.activeVideo !== activeKey ? activeKey : prevState.activeVideo,
+    }));
+  };
+
+  renderVideoTitles = (video) => {
+    const isActive = this.state.activeVideo === video.src;
+    return (
+      <div
+        key={video.src}
+        onClick={e => this.onClickVideoTitle(e, video.src)}
+        className={`${isActive ? 'active' : ''} hideText`}
+      >{video.title}</div>
+    )
+  };
+
   renderVideos = (video) => (
-    <Fragment key={video.src}>
-      <div className="videoTab">{video.title}</div>
-      {
-        this.state.activeVideo === video.src &&
-          <iframe
-            width='640' height='350'
-            src={video.src}
-            allowFullScreen
-            title={video.title}
-          />
-      }
-    </Fragment>
+    this.state.activeVideo === video.src &&
+      <iframe
+        key={video.src}
+        width='640' height='350'
+        src={video.src}
+        allowFullScreen
+        title={video.title}
+      />
   );
 
   renderMatches = (match) => {
     const { activeKey } = this.state;
     const isActive = activeKey === match.key;
+    const videos = match.videos;
 
     return (
       <div
@@ -52,7 +67,17 @@ class Match extends Component {
             <div className="title hideText">{match.title}</div>
             <div className="time hideText">{match.time}</div>
             <div className="league hideText">{match.league}</div>
-            {isActive && match.videos.map(this.renderVideos)}
+            {
+              isActive &&
+                <div className="videos">
+                  <div className="video-titles">
+                    {videos.map(this.renderVideoTitles)}
+                  </div>
+                  <div className="video-src">
+                    {videos.map(this.renderVideos)}
+                  </div>
+                </div>
+            }
         </div>
       </div>
     )
