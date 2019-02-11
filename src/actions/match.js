@@ -1,11 +1,11 @@
 
 export const actionTypes = {
-  GET_ALL_MATCHES: 'GET_ALL_MATCHES',
+  GET_NEXT_MATCHES: 'GET_NEXT_MATCHES',
 };
 
-export const getAllMatchesAction = (matches) => dispatch => {
+export const getMatchesAction = (matches) => dispatch => {
   dispatch({
-    type: actionTypes.GET_ALL_MATCHES,
-    payload: matches
+    type: actionTypes.GET_NEXT_MATCHES,
+    payload: matches,
   })
 }

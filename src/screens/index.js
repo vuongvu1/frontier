@@ -3,29 +3,26 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { initializeFirebase } from 'services/firebase';
-import {
-  getMatchesForPageApi,
-} from 'apis/firebase';
-import { getAllMatchesAction } from 'actions/match';
+import { getMatchesByKeyApi } from 'apis/firebase';
+import { getMatchesAction } from 'actions/match';
 import Header from 'components/header';
 import Match from 'screens/match';
 import Loading from 'components/loading';
 
-import { normalizeMatches } from 'utils/normalizeData';
 import './index.scss';
 
 const About = lazy(() => import('screens/about'));
 
 class App extends Component {
 
-  getMatches = async () => {
-    const matches = await getMatchesForPageApi();
-    this.props.getAllMatchesProps(normalizeMatches(matches));
+  getMatchesDefault = async () => {
+    const matches = await getMatchesByKeyApi();
+    this.props.getMatchesProps(matches);
   }
 
   componentDidMount() {
     initializeFirebase();
-    this.getMatches();
+    this.getMatchesDefault();
   }
 
   render() {
@@ -67,7 +64,7 @@ const mapStateToProps = state => ({
  });
 
 const mapDispatchToProps = dispatch => ({
-  getAllMatchesProps: (matches) => dispatch(getAllMatchesAction(matches))
+  getMatchesProps: (matches) => dispatch(getMatchesAction(matches))
  });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
