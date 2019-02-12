@@ -25,8 +25,8 @@ const getMatchesByDefault = async () =>
       })
   );
 
-const getMatchesByKey = async (key) =>
-  normalizeMatches(
+const getMatchesByKey = async (key) => {
+  const nextMatches = normalizeMatches(
     await firebase.database().ref('matches/')
       .orderByKey()
       .endAt(key)
@@ -35,7 +35,10 @@ const getMatchesByKey = async (key) =>
       .then(snapshot => {
         return snapshot.val();
       })
-  ).shift();
+  );
+  nextMatches.shift();
+  return nextMatches;
+}
 
 export const getMatchesByKeyApi = (key) =>
   key ? getMatchesByKey(key) : getMatchesByDefault();

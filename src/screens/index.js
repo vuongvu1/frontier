@@ -15,18 +15,21 @@ const About = lazy(() => import('screens/about'));
 
 class App extends Component {
 
-  getMatchesDefault = async () => {
-    const matches = await getMatchesByKeyApi();
-    this.props.getMatchesProps(matches);
+  getMatches = async () => {
+    const { currentKey } = this.props;
+    const matches = await getMatchesByKeyApi(currentKey);
+    if (matches.length) {
+      this.props.getMatchesProps(matches);
+    }
   }
 
   componentDidMount() {
     initializeFirebase();
-    this.getMatchesDefault();
+    this.getMatches();
   }
 
   render() {
-    const { matches } = this.props;
+    const { matches, length } = this.props;
     return (
       <div>
         <Router>
@@ -38,7 +41,7 @@ class App extends Component {
                   exact path="/"
                   render={() => (
                     matches.length
-                    ? <Match matches={matches} />
+                    ? <Match length={length} matches={matches} getMatches={this.getMatches} />
                     : <Loading />
                   )}
                 />

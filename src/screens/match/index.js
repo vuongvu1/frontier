@@ -84,10 +84,14 @@ class Match extends Component {
   };
 
   render() {
-    const { matches } = this.props;
-    console.log({ matches });
+    const { matches, getMatches, length } = this.props;
 
-    return matches.map(this.renderMatches);
+    return (
+      <div>
+        {matches.map(this.renderMatches)}
+        <input type="button" value="next" onClick={getMatches} />Total: {length} matches
+      </div>
+    );
   };
 };
 
