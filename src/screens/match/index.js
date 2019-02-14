@@ -87,9 +87,12 @@ class Match extends Component {
     const { matches, getMatches, length } = this.props;
 
     return (
-      <div>
+      <div className="matches">
         {matches.map(this.renderMatches)}
-        <input type="button" value="next" onClick={getMatches} />Total: {length} matches
+        <div
+          onClick={getMatches}
+          className="nextBtn"
+        >{`Next (current ${length})`}</div>
       </div>
     );
   };
