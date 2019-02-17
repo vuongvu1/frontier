@@ -5,7 +5,7 @@ import './index.scss';
 const About = () => {
   return (
     <Fragment>
-        hello about
+      This is a free commercial site :)
     </Fragment>
   );
 }
