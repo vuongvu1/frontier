@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './index.scss';
 
 class Match extends Component {
-  state = { activeKey: '', activeVideo: '' };
+  state = { activeKey: '', activeVideo: '', isLoadingNextMatch: false };
 
   onClickOnMatch = (match) => {
     const { key, videos } = match;
@@ -83,16 +83,29 @@ class Match extends Component {
     )
   };
 
+  getMatches = async () => {
+    this.setState(() => ({ isLoadingNextMatch: true }));
+    this.props.getMatches().then(() => {
+      this.setState(() => ({ isLoadingNextMatch: false }));
+    });
+  }
+
   render() {
-    const { matches, getMatches, length } = this.props;
+    const { matches, length } = this.props;
+    const { isLoadingNextMatch } = this.state;
 
     return (
       <div className="matches">
         {matches.map(this.renderMatches)}
-        <div
-          onClick={getMatches}
-          className="nextBtn"
-        >{`Next (current ${length})`}</div>
+        {
+          isLoadingNextMatch
+            ? (<div className="nextBtnLoading"></div>)
+            : (
+              <div onClick={this.getMatches} className="nextBtn">
+                {`Next (${length + 1} - ${length + 5})`}
+              </div>
+            )
+        }
       </div>
     );
   };

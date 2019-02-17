@@ -83,4 +83,17 @@
       color: grey;
     }
   }
+
+  .nextBtnLoading {
+    width: 150px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    border: 2px solid white;
+    border-radius: 2px;
+    background: black;
+    color: white;
+    -webkit-animation: heartBeat 500ms linear infinite both;
+    animation: heartBeat 500ms linear infinite both;
+  }
 }

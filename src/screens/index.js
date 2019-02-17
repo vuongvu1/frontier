@@ -41,8 +41,13 @@ class App extends Component {
                   exact path="/"
                   render={() => (
                     matches.length
-                    ? <Match length={length} matches={matches} getMatches={this.getMatches} />
-                    : <Loading />
+                    ? (
+                      <Match
+                        length={length}
+                        matches={matches}
+                        getMatches={this.getMatches}
+                      />
+                    ) : <Loading />
                   )}
                 />
                 <Route
