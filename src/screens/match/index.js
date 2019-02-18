@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { DEFAULT_PAGE_SIZE } from 'constants/firebase';
 import './index.scss';
 
 class Match extends Component {
@@ -102,7 +103,7 @@ class Match extends Component {
             ? (<div className="nextBtnLoading"></div>)
             : (
               <div onClick={this.getMatches} className="nextBtn">
-                {`Next (${length + 1} - ${length + 5})`}
+                {`Next (${length + 1} - ${length + DEFAULT_PAGE_SIZE})`}
               </div>
             )
         }
