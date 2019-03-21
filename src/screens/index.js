@@ -69,10 +69,10 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   ...state.match
- });
+});
 
 const mapDispatchToProps = dispatch => ({
   getMatchesProps: (matches) => dispatch(getMatchesAction(matches))
- });
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

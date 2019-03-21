@@ -1,12 +1,21 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import styled from 'styled-components';
 
-import './index.scss';
+const StyledAbout = styled.div`
+  color: tomato;
+  ${props => {
+    const { happy } = props;
+    return `
+      background: ${happy};
+    `;
+  }};
+`;
 
 const About = () => {
   return (
-    <Fragment>
+    <StyledAbout happy={'blue'}>
       This is a free commercial site &#9829;
-    </Fragment>
+    </StyledAbout>
   );
 };
 

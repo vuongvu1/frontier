@@ -45,7 +45,6 @@ class Match extends Component {
     this.state.activeVideo === video.src &&
       <iframe
         key={video.src}
-        width='640' height='350'
         src={video.src}
         allowFullScreen
         title={video.title}

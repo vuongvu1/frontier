@@ -60,8 +60,18 @@
 
         .video-src {
           margin-top: 10px;
+          height: 100%;
           iframe {
             border: none;
+            width: 640px;
+            height: 350px;
+            @media all and (max-width: 736px) {
+              max-width: 95%;
+              max-height: 200px;
+            }
+            @media all and (max-width: 480px) {
+              max-height: 150px;
+            }
           }
         }
       }
